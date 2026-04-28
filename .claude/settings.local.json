@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:/Users/LG/workspace/claude-nextjs-starterkit\" status)",
+      "Bash(git *)",
+      "Bash(npm --version)",
+      "Bash(npx --version)",
+      "Bash(npm show *)",
+      "Bash(python3 -c \"import sys,json; v=json.load\\(sys.stdin\\); print\\([x for x in v if x.startswith\\('4'\\)][-5:]\\)\")",
+      "Bash(python3 -c \"import sys,json; v=json.load\\(sys.stdin\\); print\\([x for x in v if x.startswith\\('15'\\)][-5:]\\)\")",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:lucide.dev)",
+      "WebFetch(domain:github.com)",
+      "Bash(npx create-next-app@latest . --typescript --eslint --app --src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest init -t next)",
+      "Bash(npx shadcn@latest add button input label form card badge avatar dropdown-menu --yes)",
+      "Bash(npx shadcn@latest add navigation-menu sheet dialog alert alert-dialog separator skeleton scroll-area --yes)",
+      "Bash(npx shadcn@latest add select textarea checkbox switch tabs tooltip popover command breadcrumb --yes)",
+      "Bash(npx shadcn@latest add table progress toggle toggle-group sidebar sonner --yes)",
+      "Bash(npm run *)"
+    ]
+  }
+}
