@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:/Users/LG/workspace/claude-nextjs-starters\" rev-parse --show-toplevel)",
+      "Bash(git -C \"C:/Users/LG/workspace/claude-nextjs-starters\" log --oneline -5)"
+    ]
+  }
+}
