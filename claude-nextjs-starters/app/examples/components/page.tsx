@@ -305,7 +305,12 @@ export default function ComponentsExamplePage() {
                       <Checkbox
                         id="checkbox"
                         checked={isChecked}
-                        onCheckedChange={setIsChecked}
+                        onCheckedChange={(checked) => {
+                          // CheckedState에서 boolean 값만 처리
+                          if (typeof checked === 'boolean') {
+                            setIsChecked(checked)
+                          }
+                        }}
                       />
                       <Label htmlFor="checkbox">약관에 동의합니다 (체크됨: {isChecked.toString()})</Label>
                     </div>

@@ -30,7 +30,7 @@ export default function HooksExamplePage() {
 
   // Hooks 2: useDebounceValue - 검색 쿼리 디바운싱
   const [searchInput, setSearchInput] = useState('')
-  const debouncedSearch = useDebounceValue(searchInput, 500)
+  const [debouncedSearch] = useDebounceValue(searchInput, 500)
 
   // Hooks 3: useMediaQuery - 화면 크기 감지
   const isMobile = useMediaQuery('(max-width: 768px)')
