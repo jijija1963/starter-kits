@@ -4,7 +4,11 @@
       "mcp__playwright",
       "Bash(npm run *)",
       "Bash(taskkill *)",
-      "PowerShell(Stop-Process *)"
+      "PowerShell(Stop-Process *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(dir C:\\\\Users\\\\LG\\\\workspace\\\\claude-nextjs-starters *)",
+      "Bash(dir *)"
     ],
     "deny": [],
     "ask": []
