@@ -17,17 +17,23 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: claude-nextjs-starters
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: false
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: claude-nextjs-starters/package-lock.json
       - run: npm ci
-      - run: npm run build
+      - run: npx next build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./claude-nextjs-starters/out
 
   deploy:
     needs: build
