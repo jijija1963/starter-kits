@@ -438,7 +438,7 @@ import { Button } from '@/components/ui/button'`}</code>
                       <p className="text-sm font-medium mb-2">Tailwind CSS v4</p>
                       <div className="space-y-2 text-xs text-muted-foreground">
                         <p>✓ CSS 변수 기반 테마 설정</p>
-                        <p>✓ <code className="bg-muted px-1">@import "tailwindcss"</code> 사용</p>
+                        <p>✓ <code className="bg-muted px-1">@import &quot;tailwindcss&quot;</code> 사용</p>
                         <p>✓ <code className="bg-muted px-1">class-variance-authority</code>로 컴포넌트 variant 관리</p>
                         <p>✓ Dark mode 자동 지원</p>
                       </div>

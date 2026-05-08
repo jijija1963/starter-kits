@@ -314,8 +314,8 @@ export default function HooksExamplePage() {
                       <Label>복사할 텍스트</Label>
                       <div className="bg-muted rounded-lg p-4 font-mono text-xs">
                         <div>const example = &#123;</div>
-                        <div className="ml-2">name: 'useCopyToClipboard',</div>
-                        <div className="ml-2">usage: 'Copy text to clipboard',</div>
+                        <div className="ml-2">name: &apos;useCopyToClipboard&apos;,</div>
+                        <div className="ml-2">usage: &apos;Copy text to clipboard&apos;,</div>
                         <div>&#125;</div>
                       </div>
                     </div>
