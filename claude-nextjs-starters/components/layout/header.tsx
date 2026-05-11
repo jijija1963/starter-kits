@@ -43,7 +43,13 @@ export function Header() {
               {navItems.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink asChild>
-                    <Link href={item.href} className={navigationMenuTriggerStyle()}>
+                    {/* external 플래그에 따라 새 탭 열기 및 보안 속성 적용 */}
+                    <Link
+                      href={item.href}
+                      className={navigationMenuTriggerStyle()}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                    >
                       {item.title}
                     </Link>
                   </NavigationMenuLink>
@@ -67,11 +73,13 @@ export function Header() {
               <SheetContent side="right" className="w-[300px]">
                 <div className="flex flex-col gap-4 pt-8">
                   {navItems.map((item) => (
+                    // 모바일 메뉴: external 플래그에 따라 새 탭 및 보안 rel 속성 적용
                     <Link
                       key={item.href}
                       href={item.href}
                       className="text-lg font-medium hover:text-primary transition-colors"
                       target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
                     >
                       {item.title}
                     </Link>

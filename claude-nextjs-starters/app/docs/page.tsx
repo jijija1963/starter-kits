@@ -293,12 +293,12 @@ export default function AboutPage() {
 
                     <Separator />
 
-                    {/* 예제 및 문서 링크 */}
+                    {/* 훅 예제: /examples/hooks 미구현으로 대시보드로 안내 */}
                     <div className="bg-muted/50 rounded-lg p-4">
                       <p className="text-sm font-medium mb-2">더 자세한 예제 확인</p>
-                      <Link href="/examples/hooks">
+                      <Link href="/dashboard">
                         <Button variant="outline" className="w-full text-xs">
-                          usehooks-ts 예제 페이지
+                          대시보드에서 실제 예제 보기
                           <ArrowRight className="ml-2 h-3 w-3" />
                         </Button>
                       </Link>
@@ -373,12 +373,12 @@ export default function MyComponent() {
 
                     <Separator />
 
-                    {/* 예제 페이지 링크 */}
+                    {/* 컴포넌트 쇼케이스: /examples/components 미구현으로 대시보드로 안내 */}
                     <div className="bg-muted/50 rounded-lg p-4">
                       <p className="text-sm font-medium mb-2">모든 컴포넌트 확인</p>
-                      <Link href="/examples/components">
+                      <Link href="/dashboard">
                         <Button variant="outline" className="w-full text-xs">
-                          컴포넌트 쇼케이스
+                          대시보드 컴포넌트 쇼케이스
                           <ArrowRight className="ml-2 h-3 w-3" />
                         </Button>
                       </Link>
@@ -446,12 +446,12 @@ import { Button } from '@/components/ui/button'`}</code>
 
                     <Separator />
 
-                    {/* 성능 최적화 */}
+                    {/* 설정 가이드: /examples/config 미구현으로 대시보드로 안내 */}
                     <div className="bg-muted/50 rounded-lg p-4">
                       <p className="text-sm font-medium mb-2">성능 최적화 및 설정</p>
-                      <Link href="/examples/config">
+                      <Link href="/dashboard">
                         <Button variant="outline" className="w-full text-xs">
-                          설정 및 최적화 가이드
+                          대시보드에서 설정 예제 확인
                           <ArrowRight className="ml-2 h-3 w-3" />
                         </Button>
                       </Link>
@@ -463,16 +463,16 @@ import { Button } from '@/components/ui/button'`}</code>
           </div>
         </section>
 
-        {/* 하단 CTA 섹션 */}
+        {/* 하단 CTA 섹션: /examples 미구현으로 대시보드로 안내하며 문구도 함께 조정 */}
         <section className="py-12 border-t bg-muted/50">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold mb-4">이제 예제를 확인해보세요</h2>
+            <h2 className="text-2xl font-bold mb-4">실제 동작을 확인해보세요</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              문서에서 배운 내용들을 실제 동작하는 예제로 확인할 수 있습니다.
+              문서에서 배운 내용들을 대시보드에서 실제 동작하는 컴포넌트로 확인할 수 있습니다.
             </p>
-            <Link href="/examples">
+            <Link href="/dashboard">
               <Button size="lg">
-                예제 모음으로 이동
+                대시보드로 이동
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

@@ -47,11 +47,31 @@ export function ContactForm() {
     resolver: zodResolver(contactSchema),
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  /**
+   * 폼 제출 핸들러
+   * react-hook-form이 유효성 검사 통과 후 호출
+   * @param formData - 유효성 검사를 통과한 폼 데이터
+   */
   const onSubmit = async (formData: ContactFormData) => {
     try {
+      // 제출 데이터 확인 (개발 환경에서만 출력)
+      console.info('[ContactForm] 제출 데이터:', formData)
+
+      /*
+       * 실제 API 연동 예시 (주석 해제 후 사용):
+       *
+       * const response = await fetch('/api/contact', {
+       *   method: 'POST',
+       *   headers: { 'Content-Type': 'application/json' },
+       *   body: JSON.stringify(formData),
+       * })
+       *
+       * if (!response.ok) {
+       *   throw new Error('서버 오류가 발생했습니다')
+       * }
+       */
+
       // API 호출 시뮬레이션 (500ms 지연)
-      // 실제 환경에서는 formData를 API로 전송
       await new Promise((resolve) => setTimeout(resolve, 500))
 
       // 성공 토스트 표시

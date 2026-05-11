@@ -72,7 +72,8 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="https://github.com" target="_blank">
+                {/* 외부 링크: 보안 속성 rel="noopener noreferrer" 추가 */}
+                <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto">
                     <Code className="mr-2 h-4 w-4" />
                     GitHub에서 보기
@@ -107,8 +108,9 @@ export default function HomePage() {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8 text-center">주요 기능</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {features.map((feature, idx) => (
-                <Card key={idx}>
+              {/* key를 인덱스 대신 안정적인 고유 식별자(feature.title)로 사용 */}
+              {features.map((feature) => (
+                <Card key={feature.title}>
                   <CardHeader>
                     <div className="text-primary mb-2">{feature.icon}</div>
                     <CardTitle>{feature.title}</CardTitle>
