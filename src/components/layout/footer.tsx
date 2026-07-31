@@ -1,14 +1,29 @@
+'use client'
+
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { Separator } from '@/components/ui/separator'
 import { navLinks } from './nav-links'
 
 /**
  * 푸터 컴포넌트
  * 네비게이션 링크와 저작권 정보를 표시합니다.
+ * 실제 링크와 데모 링크를 구분 렌더링합니다.
  * @returns 푸터 컴포넌트
  */
 export function Footer() {
   const currentYear = new Date().getFullYear()
+
+  /**
+   * 데모 링크(플레이스홀더) 클릭 핸들러
+   * 사용자에게 이것이 예시 링크임을 안내하는 토스트를 표시합니다.
+   * @param label - 메뉴 이름
+   */
+  const handlePlaceholderClick = (label: string) => {
+    toast.info(`"${label}" 메뉴는 데모 링크입니다. 실제 프로젝트에서 연결해주세요.`, {
+      position: 'bottom-center',
+    })
+  }
 
   return (
     <footer className="mt-auto border-t bg-muted/50">
@@ -29,13 +44,23 @@ export function Footer() {
               <h4 className="font-semibold">링크</h4>
               <ul className="space-y-2 text-sm">
                 {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
+                  <li key={link.label}>
+                    {/* 데모 링크(href가 null)와 실제 링크를 구분 렌더링 */}
+                    {link.isPlaceholder ? (
+                      <button
+                        onClick={() => handlePlaceholderClick(link.label)}
+                        className="transition-colors hover:text-primary cursor-pointer"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href || '/'}
+                        className="transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
