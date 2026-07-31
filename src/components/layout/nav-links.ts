@@ -26,8 +26,8 @@ export const navLinks: NavLink[] = [
   },
   {
     label: '예시',
-    href: null,
-    isPlaceholder: true,
+    href: '/examples',
+    isPlaceholder: false,
   },
   {
     label: '연락',
