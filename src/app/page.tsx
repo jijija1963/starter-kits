@@ -3,11 +3,13 @@
 import { Counter } from '@/components/counter'
 import { ExampleForm } from '@/components/example-form'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle2, Zap } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { CheckCircle2, Rocket, GitBranch } from 'lucide-react'
+import { Container } from '@/components/layout/container'
 
 /**
  * 스타터킷 홈페이지
- * Next.js 모던 웹 스타터킷의 기술스택과 예시 컴포넌트를 보여주는 페이지입니다.
+ * Hero 섹션, 기술스택, 예시 컴포넌트를 보여주는 페이지입니다.
  * @returns 홈페이지 컴포넌트
  */
 export default function Home() {
@@ -23,28 +25,50 @@ export default function Home() {
   ]
 
   return (
-    <div className="min-h-screen w-full bg-background">
-      {/* 헤더 섹션 */}
-      <header className="border-b bg-card py-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Zap className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold tracking-tight">Next.js 모던 웹 스타터킷</h1>
+    <div className="w-full">
+      {/* Hero 섹션 */}
+      <section className="bg-gradient-to-b from-primary/5 to-transparent py-20 sm:py-32">
+        <Container>
+          <div className="text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
+              <Rocket className="h-4 w-4" />
+              <span className="text-sm font-medium">웹 개발을 빠르게 시작하세요</span>
+            </div>
+
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+              Next.js 모던 웹
+              <br />
+              <span className="text-primary">스타터킷</span>
+            </h1>
+
+            <p className="mt-6 text-lg text-muted-foreground sm:text-xl max-w-2xl mx-auto">
+              빠르게 웹 개발을 시작하기 위한 완벽한 기초 설정.
+              다크모드, 반응형 레이아웃, 접근성 높은 컴포넌트가 모두 준비되어 있습니다.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Button size="lg" className="gap-2">
+                <Rocket className="h-4 w-4" />
+                시작하기
+              </Button>
+              <Button size="lg" variant="outline" className="gap-2">
+                <GitBranch className="h-4 w-4" />
+                소스 코드
+              </Button>
+            </div>
           </div>
-          <p className="mt-2 text-lg text-muted-foreground">
-            빠르게 웹 개발을 시작하기 위한 완벽한 기초 설정
-          </p>
-        </div>
-      </header>
+        </Container>
+      </section>
 
       {/* 메인 콘텐츠 */}
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+      <main className="py-12 sm:py-16">
         {/* 기술스택 섹션 */}
         <section className="mb-16">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold tracking-tight">설치된 기술스택</h2>
-            <p className="mt-2 text-muted-foreground">이 스타터킷에는 다음의 라이브러리들이 포함되어 있습니다.</p>
-          </div>
+          <Container>
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold tracking-tight">설치된 기술스택</h2>
+              <p className="mt-2 text-muted-foreground">이 스타터킷에는 다음의 라이브러리들이 포함되어 있습니다.</p>
+            </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {techStack.map((tech) => (
@@ -58,45 +82,47 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+            </div>
+          </Container>
         </section>
 
         {/* 예시 컴포넌트 섹션 */}
         <section>
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold tracking-tight">예시 컴포넌트</h2>
-            <p className="mt-2 text-muted-foreground">
-              아래는 설치된 라이브러리들의 사용법을 보여주는 예시 컴포넌트입니다.
-            </p>
-          </div>
+          <Container>
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold tracking-tight">예시 컴포넌트</h2>
+              <p className="mt-2 text-muted-foreground">
+                아래는 설치된 라이브러리들의 사용법을 보여주는 예시 컴포넌트입니다.
+              </p>
+            </div>
 
-          <div className="flex flex-col gap-8 lg:flex-row">
-            <div className="flex-1">
-              <Counter />
+            <div className="flex flex-col gap-8 lg:flex-row">
+              <div className="flex-1">
+                <Counter />
+              </div>
+              <div className="flex-1">
+                <ExampleForm />
+              </div>
             </div>
-            <div className="flex-1">
-              <ExampleForm />
-            </div>
-          </div>
+          </Container>
         </section>
 
-        {/* 시작하기 섹션 */}
-        <section className="mt-16 rounded-lg border border-dashed bg-card p-8">
-          <h2 className="text-2xl font-bold tracking-tight">다음 단계</h2>
-          <ul className="mt-4 space-y-2 text-muted-foreground">
-            <li>• 이 폴더를 새 프로젝트의 템플릿으로 사용하세요</li>
-            <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/</code> 디렉토리 내의 구조를 참고하여 컴포넌트를 작성하세요</li>
-            <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/store/</code>에서 Zustand 상태 관리 패턴을 확인하세요</li>
-            <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/lib/validations/</code>에서 Zod 스키마 작성 방식을 배우세요</li>
-            <li>• 코드 스타일은 <code className="rounded bg-muted px-2 py-1 font-mono text-sm">CLAUDE.md</code>를 참고하세요</li>
-          </ul>
+        {/* 다음 단계 섹션 */}
+        <section className="mt-16">
+          <Container>
+            <div className="rounded-lg border border-dashed bg-card p-8">
+              <h2 className="text-2xl font-bold tracking-tight">다음 단계</h2>
+              <ul className="mt-4 space-y-2 text-muted-foreground">
+                <li>• 이 폴더를 새 프로젝트의 템플릿으로 사용하세요</li>
+                <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/</code> 디렉토리 내의 구조를 참고하여 컴포넌트를 작성하세요</li>
+                <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/store/</code>에서 Zustand 상태 관리 패턴을 확인하세요</li>
+                <li>• <code className="rounded bg-muted px-2 py-1 font-mono text-sm">src/lib/validations/</code>에서 Zod 스키마 작성 방식을 배우세요</li>
+                <li>• 코드 스타일은 <code className="rounded bg-muted px-2 py-1 font-mono text-sm">CLAUDE.md</code>를 참고하세요</li>
+              </ul>
+            </div>
+          </Container>
         </section>
       </main>
-
-      {/* 푸터 */}
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        <p>© 2025 Next.js 모던 웹 스타터킷. 자유롭게 사용하세요.</p>
-      </footer>
     </div>
   )
 }
