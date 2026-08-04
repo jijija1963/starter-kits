@@ -780,6 +780,206 @@ export function LoginForm() {
 5. 상태 관리 (Zustand)
 6. 폼 처리 (React Hook Form + Zod)
 
+## 🔧 Base UI의 render prop 패턴
+
+이 프로젝트는 **Base UI** (shadcn/ui의 기반)를 사용하며, UI 컴포넌트를 구성할 때 중요한 패턴이 있습니다.
+
+### 문제: 중첩된 버튼 태그
+
+Base UI의 Trigger나 Close 같은 컴포넌트는 기본적으로 `<button>` 태그를 렌더링합니다. 이 안에 다른 `<button>`을 만드는 Button 컴포넌트를 넣으면 `<button><button>...</button></button>` 구조가 생겨 **React Hydration 오류**가 발생합니다.
+
+```tsx
+// ❌ 잘못된 예 (중첩된 버튼)
+<DropdownMenuTrigger>
+  <Button variant="outline" size="icon">
+    <Sun />
+  </Button>
+</DropdownMenuTrigger>
+
+// HTML 결과: <button><button>...</button></button> ← 오류!
+```
+
+### 해결책: render prop 사용
+
+Base UI 컴포넌트의 `render` prop에 Button을 전달하면, Trigger가 자신의 `<button>` 대신 Button이 만드는 `<button>`을 사용하므로 중첩이 해결됩니다.
+
+```tsx
+// ✅ 올바른 방법 (render prop 사용)
+<DropdownMenuTrigger render={<Button variant="outline" size="icon" />}>
+  <Sun />
+</DropdownMenuTrigger>
+
+// HTML 결과: <button>...</button> ← 하나의 버튼만 생성!
+```
+
+**적용 위치:**
+- `DropdownMenuTrigger` (다크모드 토글 버튼) - `src/components/layout/mode-toggle.tsx`
+- `SheetTrigger` (모바일 메뉴 버튼) - `src/components/layout/mobile-nav.tsx`
+- `DialogPrimitive.Close` (모달 닫기 버튼) - `src/components/ui/dialog.tsx`
+
+**핵심:**
+- Trigger/Close/Button 같은 Base UI 프리미티브 안에 다른 Button을 넣어야 할 때 무조건 `render` prop 사용
+- `render` prop은 "내가 전달한 컴포넌트가 만드는 DOM 엘리먼트를 직접 사용해"라는 뜻
+
+## 🧪 Playwright MCP로 오류 수집 및 분석
+
+개발 중 React Hydration 오류나 콘솔 에러를 빠르게 수집하고 분석할 때 **Playwright MCP**를 사용할 수 있습니다.
+
+### 기본 사용 방법
+
+```typescript
+// 페이지 접속
+await page.goto('http://localhost:3000')
+
+// 콘솔 메시지 확인 (에러, 경고, 로그)
+// Snapshot의 "Console" 섹션에서 확인 가능
+
+// 콘솔 에러만 추출
+// "Page URL: ..." 뒤의 "Console: X errors, Y warnings" 확인
+```
+
+### 오류 추적 흐름
+
+1. **수집 단계**: 페이지 접속 → 콘솔 로그 기록
+2. **분석 단계**: 에러 메시지와 스택트레이스 분석 → 원인 컴포넌트 식별
+3. **해결 단계**: 코드 수정
+4. **검증 단계**: 페이지 재접속 → 콘솔 에러 0건 확인
+
+### 실제 사례: React Hydration 오류 해결
+
+**문제**: 다크모드 토글 버튼에서 Hydration 오류 4건 발생
+```
+1. In HTML, <button> cannot be a descendant of <button>.
+2. <button> cannot contain a nested <button>.
+3. Encountered a script tag while rendering React component.
+4. Error: Hydration failed because the server rendered HTML didn't match the client.
+```
+
+**분석**: 콘솔 스택트레이스에서 `ModeToggle > DropdownMenuTrigger > Button` 트리 확인
+→ Button(렌더링) 안에 Button(렌더링)이 중첩되는 구조 발견
+
+**해결**: `render` prop 패턴 적용
+```tsx
+<DropdownMenuTrigger render={<Button variant="outline" size="icon" />}>
+  <Sun />
+</DropdownMenuTrigger>
+```
+
+**결과**: 콘솔 에러 4건 → 0건 (Hydration mismatch 해결)
+
+## 📋 Git 워크플로우 및 커밋 규칙
+
+### 커밋 메시지 형식
+
+이 프로젝트는 **관습적 커밋(Conventional Commits)** 형식을 사용합니다.
+
+```
+<타입>: <설명>
+
+<본문 (선택사항)>
+```
+
+**타입:**
+- `feat:` - 새로운 기능 추가
+- `fix:` - 버그 수정
+- `refactor:` - 기능 변경 없이 코드 구조 개선
+- `style:` - 코드 스타일 수정 (포맷팅, 세미콜론 등)
+- `docs:` - 문서 추가/수정
+- `chore:` - 빌드 설정, 의존성 등 (사용자 보이지 않는 변경)
+- `test:` - 테스트 코드 추가/수정
+
+**예시:**
+```
+feat: 사용자 인증 기능 추가
+
+- 로그인 폼 UI 구현
+- JWT 토큰 생성/검증 로직
+- 보호된 라우트 구현
+
+fix: React Hydration 오류 해결 - 중첩된 button 태그 제거
+
+원인: ModeToggle에서 DropdownMenuTrigger 안에 Button 중첩
+해결: render prop 패턴 사용
+```
+
+### 브랜치 전략
+
+- `main` - 배포 준비된 코드 (보호된 브랜치)
+- `feature/기능명` - 새 기능 개발
+- `fix/버그명` - 버그 수정
+- `refactor/대상` - 코드 리팩토링
+
+**예시:**
+```bash
+git checkout -b feature/dark-mode
+git checkout -b fix/hydration-error
+```
+
+### 커밋하기 전 확인사항
+
+1. **린트 검사**: `npm run lint` (타입/스타일 오류 없는지)
+2. **빌드 테스트**: `npm run build` (배포 가능한 상태인지)
+3. **로컬 테스트**: `npm run dev` (UI 동작 확인)
+4. **불필요한 파일 확인**: `.env`, 로그 파일, `node_modules` 등이 포함 안 되었는지
+
+## 🐛 개발 중 일반적인 문제 해결
+
+### 콘솔에 Hydration 오류가 나타남
+
+**원인:** 서버 렌더링 HTML과 클라이언트 렌더링 HTML이 다름
+
+**확인 사항:**
+- `<button>` 안에 `<button>`이 중첩되지 않았는지 (특히 Base UI Trigger)
+- 클라이언트에서만 실행되는 코드 (Math.random(), Date.now())가 서버 렌더링에 포함되지 않았는지
+- 동적 import나 조건부 렌더링이 올바르게 구현되었는지
+
+**해결:**
+1. Playwright MCP로 콘솔 메시지 확인
+2. 스택트레이스에서 문제 컴포넌트 식별
+3. `render` prop 패턴 또는 `suppressHydrationWarning` 적용
+
+### 개발 서버가 자동 새로고침이 안 됨
+
+**해결:**
+```bash
+# 개발 서버 재시작
+npm run dev
+
+# 또는 npm 캐시 초기화 후 재시작
+npm cache clean --force
+rm -rf .next node_modules
+npm install
+npm run dev
+```
+
+### 새 컴포넌트가 타입 에러로 인식되지 않음
+
+**원인:** TypeScript가 파일 변경을 감지하지 못함
+
+**해결:**
+```bash
+# IDE 재시작 또는 명령어 실행
+npm run lint
+
+# .next 폴더 삭제 후 재빌드
+rm -rf .next
+npm run dev
+```
+
+### Tailwind CSS 클래스가 적용 안 됨
+
+**원인:** 클래스명이 동적으로 생성되거나, `tailwind.config.js`에 경로가 제대로 설정 안 됨
+
+**확인:**
+```typescript
+// ❌ 잘못된 방법 (동적 클래스)
+const color = 'blue'
+<div className={`bg-${color}-500`}>...</div>
+
+// ✅ 올바른 방법 (사전 정의)
+<div className={color === 'blue' ? 'bg-blue-500' : 'bg-red-500'}>...</div>
+```
+
 ## 📝 라이센스 및 자유로운 사용
 
 이 스타터킷은 자유롭게 사용, 수정, 배포할 수 있습니다. 어떤 제약도 없습니다.
