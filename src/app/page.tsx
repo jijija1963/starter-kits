@@ -5,7 +5,6 @@ import { ExampleForm } from '@/components/example-form'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle2, Rocket, GitBranch } from 'lucide-react'
-import { Container } from '@/components/layout/container'
 
 /**
  * 스타터킷 홈페이지
@@ -28,7 +27,7 @@ export default function Home() {
     <div className="w-full">
       {/* Hero 섹션 */}
       <section className="bg-gradient-to-b from-primary/5 to-transparent py-20 sm:py-32">
-        <Container>
+        <div className="w-full max-w-6xl mx-auto px-4">
           <div className="text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
               <Rocket className="h-4 w-4" />
@@ -57,14 +56,14 @@ export default function Home() {
               </Button>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* 메인 콘텐츠 */}
       <main className="py-12 sm:py-16">
         {/* 기술스택 섹션 */}
         <section className="mb-16">
-          <Container>
+          <div className="w-full max-w-6xl mx-auto px-4">
             <div className="mb-8">
               <h2 className="text-2xl font-bold tracking-tight">설치된 기술스택</h2>
               <p className="mt-2 text-muted-foreground">이 스타터킷에는 다음의 라이브러리들이 포함되어 있습니다.</p>
@@ -83,12 +82,12 @@ export default function Home() {
               </Card>
             ))}
             </div>
-          </Container>
+          </div>
         </section>
 
         {/* 예시 컴포넌트 섹션 */}
         <section>
-          <Container>
+          <div className="w-full max-w-6xl mx-auto px-4">
             <div className="mb-8">
               <h2 className="text-2xl font-bold tracking-tight">예시 컴포넌트</h2>
               <p className="mt-2 text-muted-foreground">
@@ -104,12 +103,12 @@ export default function Home() {
                 <ExampleForm />
               </div>
             </div>
-          </Container>
+          </div>
         </section>
 
         {/* 다음 단계 섹션 */}
         <section className="mt-16">
-          <Container>
+          <div className="w-full max-w-6xl mx-auto px-4">
             <div className="rounded-lg border border-dashed bg-card p-8">
               <h2 className="text-2xl font-bold tracking-tight">다음 단계</h2>
               <ul className="mt-4 space-y-2 text-muted-foreground">
@@ -120,7 +119,7 @@ export default function Home() {
                 <li>• 코드 스타일은 <code className="rounded bg-muted px-2 py-1 font-mono text-sm">CLAUDE.md</code>를 참고하세요</li>
               </ul>
             </div>
-          </Container>
+          </div>
         </section>
       </main>
     </div>
