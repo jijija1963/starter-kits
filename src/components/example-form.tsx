@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import { ZodError } from 'zod'
 import { exampleFormSchema, type ExampleFormInput } from '@/lib/validations/example-form.schema'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,7 +22,6 @@ export function ExampleForm() {
     message: '',
   })
   const [errors, setErrors] = useState<Partial<Record<keyof ExampleFormInput, string>>>({})
-  const [isLoading, setIsLoading] = useState(false)
 
   /**
    * 폼 입력 변경 핸들러
@@ -46,9 +46,8 @@ export function ExampleForm() {
    * 폼 제출 핸들러
    * @param e - form 이벤트
    */
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsLoading(true)
     setErrors({})
 
     try {
@@ -67,21 +66,20 @@ export function ExampleForm() {
         message: '',
       })
     } catch (error) {
-      if (error instanceof Error && 'errors' in error) {
+      if (error instanceof ZodError) {
         // Zod 검증 에러 처리
-        const zodError = error as Record<string, unknown>
-        const errorArray = zodError.errors as Array<{ path: string[]; message: string }>
         const newErrors: Record<string, string> = {}
-        errorArray?.forEach((err) => {
-          newErrors[err.path[0]] = err.message
+        error.issues.forEach((issue) => {
+          const field = issue.path[0]
+          if (typeof field === 'string') {
+            newErrors[field] = issue.message
+          }
         })
         setErrors(newErrors)
       } else {
         toast.error('폼 제출 중 오류가 발생했습니다.')
         console.error(error)
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -141,8 +139,8 @@ export function ExampleForm() {
             <p className="text-xs text-muted-foreground">5글자 이상 500글자 이하</p>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? '제출 중...' : '제출'}
+          <Button type="submit" className="w-full">
+            제출
           </Button>
         </form>
       </CardContent>
