@@ -36,11 +36,9 @@ export function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">메뉴 열기</span>
-        </Button>
+      <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden" />}>
+        <Menu className="h-5 w-5" />
+        <span className="sr-only">메뉴 열기</span>
       </SheetTrigger>
       <SheetContent side="left" className="w-64">
         <nav className="flex flex-col space-y-4 py-4">
