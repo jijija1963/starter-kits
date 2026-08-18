@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright",
+      "Bash(npm run *)",
+      "Bash(taskkill *)",
+      "PowerShell(Stop-Process *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(dir C:\\\\Users\\\\LG\\\\workspace\\\\claude-nextjs-starters *)",
+      "Bash(dir *)",
+      "Bash(git *)",
+      "Bash(Select-Object FullName)",
+      "Read(//c/Users/LG/workspace/**)",
+      "Bash(npx tsc *)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "enabledMcpServerNames": true
+}
