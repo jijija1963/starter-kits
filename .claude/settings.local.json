@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(npx create-next-app@latest *)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(pkill *)",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'feat: Next.js 모던 웹 스타터킷 초기 설정 완료 *)",
+      "Bash(kill 91865)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_find",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_resize",
+      "Bash(git commit -m ' *)",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(git commit *)",
+      "Bash(git checkout *)",
+      "Artifact",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(kill %1)"
+    ]
+  }
+}
